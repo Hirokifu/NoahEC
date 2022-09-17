@@ -21,47 +21,23 @@ use App\Http\Responses\LoginResponse;
 
 class AdminController extends Controller
 {
-    /**
-     * The guard implementation.
-     *
-     * @var \Illuminate\Contracts\Auth\StatefulGuard
-     */
     protected $guard;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\StatefulGuard  $guard
-     * @return void
-     */
     public function __construct(StatefulGuard $guard)
     {
         $this->guard = $guard;
-       
     }
 
 
     public function loginForm(){
-        return view('auth.login',['guard' => 'admin']);
+        return view('auth.admin_login',['guard' => 'admin']);
     }
 
-    /**
-     * Show the login view.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laravel\Fortify\Contracts\LoginViewResponse
-     */
     public function create(Request $request): LoginViewResponse
     {
         return app(LoginViewResponse::class);
     }
 
-    /**
-     * Attempt to authenticate a new session.
-     *
-     * @param  \Laravel\Fortify\Http\Requests\LoginRequest  $request
-     * @return mixed
-     */
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
@@ -69,12 +45,6 @@ class AdminController extends Controller
         });
     }
 
-    /**
-     * Get the authentication pipeline instance.
-     *
-     * @param  \Laravel\Fortify\Http\Requests\LoginRequest  $request
-     * @return \Illuminate\Pipeline\Pipeline
-     */
     protected function loginPipeline(LoginRequest $request)
     {
         if (Fortify::$authenticateThroughCallback) {
@@ -97,22 +67,12 @@ class AdminController extends Controller
         ]));
     }
 
-    /**
-     * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laravel\Fortify\Contracts\LogoutResponse
-     */
-    public function destroy(Request $request): LogoutResponse
+    public function logout(Request $request): LogoutResponse
     {
         $this->guard->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return app(LogoutResponse::class);
     }
-}
 
- 
+}

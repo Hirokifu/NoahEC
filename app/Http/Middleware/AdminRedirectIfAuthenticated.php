@@ -26,7 +26,7 @@ class AdminRedirectIfAuthenticated
                 return redirect($guard.'/dashboard');
             }
         }
- 
+
         return $next($request);
     }
 }
