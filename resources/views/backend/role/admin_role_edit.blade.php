@@ -147,6 +147,10 @@
                                 <label for="checkbox_18">News</label>
                             </fieldset>
 
+                            <fieldset>
+                                <input type="checkbox" id="checkbox_21" name="meeting" value="1" {{ $adminuser->meeting == 1 ? 'checked' : '' }}>
+                                <label for="checkbox_21">Meeting</label>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -181,6 +185,11 @@
                             <fieldset>
                                 <input type="checkbox" id="checkbox_19" name="faq" value="1" {{ $adminuser->faq == 1 ? 'checked' : '' }}>
                                 <label for="checkbox_19">FAQ</label>
+                            </fieldset>
+
+                            <fieldset>
+                                <input type="checkbox" id="checkbox_22" name="company" value="1" {{ $adminuser->company == 1 ? 'checked' : '' }}>
+                                <label for="checkbox_22">Company</label>
                             </fieldset>
 
                         </div>

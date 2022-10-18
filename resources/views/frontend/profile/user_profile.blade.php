@@ -10,7 +10,12 @@
             <br>
             <div class="col-md-10" style="padding:0 0 0 40px">
 
+            <form method="post" action="{{ route('user.profile.store') }}" enctype="multipart/form-data">
+                @csrf
+
                 <h3 class="text-center"><span class="text-danger"></span><strong>{{ Auth::user()->name }}</strong>のプロファイル更新</h3>
+
+                <input type="hidden" name="id" value="{{ $user->id }}">
 
                 <table class="table-bordered" style="background: #e2e2e2">
 
@@ -63,6 +68,7 @@
                     <button type="submit" class="btn btn-info btn-circle">更新する</button>
                 </div>
 
+            </form>
             </div>
 
         </div>

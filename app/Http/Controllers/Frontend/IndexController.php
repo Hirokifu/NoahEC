@@ -71,7 +71,10 @@ class IndexController extends Controller
 
 		if ($request->file('profile_photo_path')) {
 			$file = $request->file('profile_photo_path');
-			unlink('upload/user_images/'.$data->profile_photo_path);
+
+			if(!empty($data->profile_photo_path)){
+				unlink('upload/user_images/'.$data->profile_photo_path);
+			}
 
 			$filename = date('YmdHi').$file->getClientOriginalName();
 			$file->move(public_path('upload/user_images'),$filename);
@@ -171,7 +174,8 @@ class IndexController extends Controller
 				unlink('upload/inquiry/'.$old_reply_image);
 
 			}
-				Reply::where('inquiry_id',$inquiry_id)->first()->delete();
+				// Reply::where('inquiry_id',$inquiry_id)->first()->delete();
+				$reply->delete();
 		}
 
 		if($inquiry->image) {
@@ -241,10 +245,11 @@ class IndexController extends Controller
 	}
 
 	public function TagWiseProduct($tag){
-		$products = Product::where('status',1)->where('product_tags_jp',$tag)->where('product_tags_cn',$tag)->orderBy('id','DESC')->paginate(3);
-		$categories = Category::orderBy('category_name_jp','ASC')->get();
-		return view('frontend.tags.tags_view',compact('products','categories'));
+		$products = Product::where('status',1)->where('product_tags_jp',$tag)->orderBy('id','DESC')->paginate(3);
 
+		$categories = Category::orderBy('category_name_jp','ASC')->get();
+
+		return view('frontend.tags.tags_view',compact('products','categories'));
 	}
 
 
@@ -273,7 +278,7 @@ class IndexController extends Controller
   // Sub-Subcategory wise data
 	public function SubSubCatWiseProduct($subsubcat_id,$slug){
 
-		$products = Product::where('status',1)->where('subsubcategory_id',$subsubcat_id)->orderBy('id','DESC')->paginate(6);
+		$products = Product::where('status',1)->where('subsubcategory_id',$subsubcat_id)->orderBy('id','DESC')->paginate(3);
 		$categories = Category::orderBy('category_name_jp','ASC')->get();
 
 		$breadsubsubcat = SubSubCategory::with(['category','subcategory'])->where('id',$subsubcat_id)->get();
@@ -308,10 +313,9 @@ class IndexController extends Controller
 			'product' => $product,
 			'color' => $product_color,
 			'size' => $product_size,
-
 		));
 
-	} // end method
+	}
 
  	// Product Seach
 	public function ProductSearch(Request $request){
@@ -320,12 +324,13 @@ class IndexController extends Controller
 
 		$item = $request->search;
 		// echo "$item";
+
         $categories = Category::orderBy('category_name_jp','ASC')->get();
-		$products = Product::where('product_name_jp','LIKE',"%$item%")->get();
+		$products = Product::where('product_name_jp','LIKE',"%$item%")->paginate(3);
 
 		return view('frontend.product.search',compact('products','categories'));
 
-	} // end method
+	}
 
 
 	// Advance Search Options

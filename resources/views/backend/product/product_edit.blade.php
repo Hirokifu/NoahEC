@@ -26,7 +26,7 @@
 
             <input type="hidden" name="id" value="{{ $products->id }}">
 
-            <div class="row"> <!-- start 1st row  -->
+            <div class="row">
 			<div class="col-md-6">
 
                 <div class="form-group">

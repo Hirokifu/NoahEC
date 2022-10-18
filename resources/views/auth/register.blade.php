@@ -1,62 +1,46 @@
-@extends('frontend.main_master')
-@section('content')
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="">
 
-<div class="breadcrumb">
-	<div class="container">
-		<div class="breadcrumb-inner">
-			<ul class="list-inline list-unstyled">
-				<li><a href="/">Home</a></li>
-				<li class='active'>Login</li>
-			</ul>
-		</div>
-	</div>
-</div>
+<title>User Register </title>
 
-<div class="body-content">
-	<div class="container">
-		<div class="sign-in-page">
-			<div class="row">
-				<!-- Sign-in -->
-            <div class="col-md-6 col-sm-6 sign-in">
-                <h4 class="">Sign in</h4>
-                <p class="">Hello, Welcome to your account.</p>
-                <div class="social-sign-in outer-top-xs">
-                    <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
-                    <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
+<!-- Vendors Style-->
+<link rel="stylesheet" href="{{ asset('backend/css/vendors_css.css') }}">
+
+<!-- Style-->
+<link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/css/skin_color.css') }}">
+
+</head>
+<body>
+
+<div class="container h-p90">
+<div class="row align-items-center justify-content-md-center h-p100">
+
+    <div class="col-12">
+        <div class="row justify-content-center no-gutters">
+            <div class="col-lg-5 col-md-6 col-12">
+
+                <div class="p-50 rounded15 b-2 b-dashed">
+
+                <div class="content-top-agile p-10">
+                    <h2 class="text-white">ノアショップ<span style="font-size:15px">©</span> 新規登録</h2>
+                    <p class="text-white" style="margin:20px 0 30px 0">バイヤー様向け</p>
                 </div>
 
-                <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
-                    @csrf
-
-                    <div class="form-group">
-                        <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-                        <input type="email" id="email" name="email" class="form-control unicase-form-control text-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-                        <input type="password" id="password" name="password" class="form-control unicase-form-control text-input">
-                    </div>
-                    <div class="radio outer-xs">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember me!
-                        </label>
-                        <a href="{{ route('password.request') }}" class="forgot-password pull-right">Forgot your Password?</a>
-                    </div>
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
-                </form>
-
-            </div>
-
-
-            <div class="col-md-6 col-sm-6 create-new-account">
-                <h4 class="checkout-subtitle">Create a new account</h4>
-                <p class="text title-tag-line">Create your new account.</p>
-
+                <div class="col-md-12 col-sm-12 create-new-account">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="form-group">
-                        <label class="info-title" for="name">Name <span>*</span></label>
+                        <label class="text-white">お名前<span style="color:red">*</span></label>
                         <input id="text" type="name" name="name" class="form-control unicase-form-control text-input">
+
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -65,8 +49,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="info-title" for="email">Email Address <span>*</span></label>
+                        <label class="text-white">メールアドレス<span style="color:red">*</span></label>
                         <input id="email" type="email" name="email" class="form-control unicase-form-control text-input">
+
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -75,8 +60,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="info-title" for="phone">Phone Number <span>*</span></label>
+                        <label class="text-white">電話番号<span style="color:red">*</span></label>
                         <input type="text" id="phone" name="phone" class="form-control unicase-form-control text-input">
+
                         @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -85,8 +71,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="info-title" for="password">Password <span>*</span></label>
+                        <label class="text-white">パスワード<span style="color:red">* (8桁以上にしてください)</span></label>
                         <input type="password" id="password" name="password" class="form-control unicase-form-control text-input">
+
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -95,8 +82,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="info-title" for="password_confirmation">Confirm Password <span>*</span></label>
+                        <label class="text-white">パスワード確認<span style="color:red">*</span></label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control unicase-form-control text-input">
+
                         @error('password_confirmation')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -104,16 +92,20 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+                    <button type="submit" class="btn btn-info btn-rounded">登録する</button>
                 </form>
+                </div>
 
+                </div>
             </div>
-        </div><!-- /.row -->
-    </div><!-- /.sigin-in-->
-
-    @include('frontend.body.brands')
-
-    </div><!-- /.container -->
+        </div>
+    </div>
+</div>
 </div>
 
-@endsection
+<!-- Vendor JS -->
+<script src="{{ asset('backend/js/vendors.min.js') }}"></script>
+<script src="{{ asset('assets/icons/feather-icons/feather.min.js') }}"></script>
+
+</body>
+</html>

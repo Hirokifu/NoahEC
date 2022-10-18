@@ -130,6 +130,16 @@
                     @else
                     @endif
 
+                    @if($item->meeting == 1)
+                    <span class="badge btn-info">Meeting</span>
+                    @else
+                    @endif
+
+                    @if($item->company == 1)
+                    <span class="badge btn-warning">Company</span>
+                    @else
+                    @endif
+
                 </td>
 
                 <td>

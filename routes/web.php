@@ -20,7 +20,8 @@ use App\Http\Controllers\Backend\ReturnController;
 use App\Http\Controllers\Backend\AdminUserController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\ReplyController;
-
+use App\Http\Controllers\Backend\MeetingController;
+use App\Http\Controllers\Backend\CompanyController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -88,16 +89,16 @@ Route::get('/user/change/password', [IndexController::class, 'UserChangePassword
 Route::post('/user/password/update', [IndexController::class, 'UserPasswordUpdate'])->name('user.password.update');
 
 // Scraper Route
-Route::get('/meaturls', [ScraperController::class, 'MeatUrls'])->name('meaturls'); //Admin画面にて管理する
+Route::get('/meaturls', [ScraperController::class, 'MeatUrls'])->name('meaturls'); //Admin画面
 Route::get('/m_mart_view', [ScraperController::class, 'MmartView'])->name('m_mart_view');
+Route::get('/m_mart_detail/{id}', [ScraperController::class, 'MmartDetail'])->name('m_mart_detail');
 Route::get('/m_mart_view_old', [ScraperController::class, 'MmartViewold']);
-Route::get('/m_mart_detail/{id}/', [ScraperController::class, 'MmartDetail'])->name('m_mart_detail');
 
-Route::get('/carurls', [ScraperController::class, 'CarUrls'])->name('carurls'); //Admin画面にて管理する
-Route::get('/indian_car', [ScraperController::class, 'IndianCar'])->name('indian.car');
+// Route::get('/carurls', [ScraperController::class, 'CarUrls'])->name('carurls'); //Admin画面
+// Route::get('/indian_car', [ScraperController::class, 'IndianCar'])->name('indian.car');
 
-Route::get('/myurls', [ScraperController::class, 'MyUrls'])->name('myurls'); //Admin画面にて管理する
-Route::get('/myjobs', [ScraperController::class, 'MyJobs'])->name('myjobs');
+// Route::get('/myurls', [ScraperController::class, 'MyUrls'])->name('myurls'); //Admin画面
+// Route::get('/myjobs', [ScraperController::class, 'MyJobs'])->name('myjobs');
 
 
 
@@ -156,6 +157,24 @@ Route::prefix('product')->group(function(){
     Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('product.active');
     Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
 });
+
+// Admin Company routes
+Route::prefix('company')->group(function(){
+    Route::get('/view', [CompanyController::class, 'CompanyView'])->name('company.view');
+    Route::get('/add', [CompanyController::class, 'CompanyAdd'])->name('company.add');
+    Route::post('/store', [CompanyController::class, 'CompanyStore'])->name('company.store');
+    Route::get('/edit/{id}', [CompanyController::class, 'CompanyEdit'])->name('company.edit');
+    Route::post('/update', [CompanyController::class, 'CompanyUpdate'])->name('company.update');
+    Route::get('/delete/{id}', [CompanyController::class, 'CompanyDelete'])->name('company.delete');
+});
+
+
+
+
+
+
+
+
 
 // Admin Slider All Routes
 Route::prefix('slider')->group(function(){
@@ -390,9 +409,10 @@ Route::get('/contact', [ContactController::class, 'ContactForm'])->name('contact
 Route::post('/contact/store', [ContactController::class, 'ContactStore'])->name('contact.store');
 
 
-// 新規追加：News, FAQ, Inquiry, Contact, Quizz
-// 追加時に、web.php, **Controller.php, sidebar.blade.phpのコード追加, MySQLへの項目追加
-// 注意：新規追加の場合、Admin User Role関連ソース（3ﾌｧｲﾙ）の変更が必要あり
+// 新規追加：News, FAQ, Inquiry, Contact, Quizz, Meeting
+// 追加時に、web.php, AdminUserController, sidebar.blade.phpのコード追加,
+// MySQLのadminsに項目追加
+// 注意：新規追加の場合、Admin User Role関連ソース（3files）の変更が必要あり
 
 // Admin FAQ Routes
 Route::prefix('faq')->group(function(){
@@ -424,4 +444,14 @@ Route::prefix('news')->group(function(){
     Route::post('/store', [ReplyController::class, 'NewsStore'])->name('news.store');
     Route::get('/edit/{id}', [ReplyController::class, 'NewsEdit'])->name('news.edit');
     Route::post('/update', [ReplyController::class, 'NewsUpdate'])->name('news.update');
+});
+
+// Admin Meeting All routes
+Route::prefix('meeting')->group(function(){
+    Route::get('/all', [MeetingController::class, 'AdminMeetingView'])->name('all.meeting');
+    Route::get('/add', [MeetingController::class, 'AdminAddMeeting'])->name('add.meeting');
+    Route::post('/store', [MeetingController::class, 'AdminMeetingStore'])->name('store.meeting');
+    Route::get('/edit/{id}', [MeetingController::class, 'AdminMeetingEdit'])->name('edit.meeting');
+    Route::post('/update', [MeetingController::class, 'AdminMeetingUpdate'])->name('update.meeting');
+    Route::get('/delete/{id}', [MeetingController::class, 'AdminMeetingDelete'])->name('delete.meeting');
 });

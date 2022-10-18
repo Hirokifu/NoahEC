@@ -29,7 +29,7 @@
 
                 </ul>
             </div>
-            <!-- /.cnt-account -->
+
 
             <div class="cnt-block">
                 <ul class="list-unstyled list-inline">
@@ -78,29 +78,35 @@
                 <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
 
                     <div class="search-area">
+
                     <form method="post" action="{{ route('product.search') }}">
                         @csrf
 
                         <div class="control-group">
 
-                        {{-- <ul class="categories-filter animate-dropdown">
-                            <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-                            <ul class="dropdown-menu" role="menu" >
-                                <li class="menu-header">Computer</li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Clothing</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Electronics</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Shoes</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Watches</a></li>
+                            <ul class="categories-filter animate-dropdown">
+                                <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="#">Categories<b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu" >
+                                    <li class="menu-header">Computer</li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">- Clothing</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">- Electronics</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">- Shoes</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">- Watches</a></li>
+                                </ul>
+                                </li>
                             </ul>
-                            </li>
-                        </ul> --}}
 
-                        <input class="search-field" onfocus="search_result_show()" onblur="search_result_hide()" id="search" name="search" placeholder="Search for a product" />
-                        <button class="search-button" type="submit"></button>
+                            <input class="search-field" onfocus="search_result_show()" onblur="search_result_hide()" id="search" name="search" placeholder="Search for a product" />
+
+                            <button class="search-button" type="submit"></button>
+
                         </div>
+
                     </form>
+
                     <div id="searchProducts"></div>
                     </div>
+
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
@@ -111,9 +117,9 @@
                     <div class="items-cart-inner">
                         <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                         <div class="basket-item-count"><span class="count" id="cartQty"></span></div>
-                        <div class="total-price-basket"> <span class="lbl">cart -</span>
-                            <span class="total-price"> <span class="sign">￥</span>
-                            <span class="value" id="cartSubTotal"> </span> </span>
+                        <div class="total-price-basket"> <span class="lbl"></span>
+                            <span class="total-price"> <span class="sign"> ¥</span>
+                            <span class="value" id="cartSubTotal"></span></span>
                         </div>
                     </div>
                     </a>
@@ -127,10 +133,10 @@
 
                         <!--   // End Mini Cart Start with Ajax -->
                         <div class="clearfix cart-total">
-                            <div class="pull-right"> <span class="text">Sub Total :</span>
+                            <div class="pull-right"> <span class="text">合計金額:</span>
                                 <span class='price'  id="cartSubTotal"> </span> </div>
                             <div class="clearfix"></div>
-                            <a href="{{ route('checkout') }}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-upper btn-primary btn-block m-t-20">チェックアウト</a>
                         </div>
 
                         </li>
@@ -215,11 +221,10 @@
                                         </a></li>
 
                                         </ul>
-                                    @endforeach <!-- // End SubSubCategory Foreach -->
+                                    @endforeach
 
                                 </div>
-                                <!-- /.col -->
-                            @endforeach <!-- // End SubCategory Foreach -->
+                            @endforeach
 
                             {{-- メニューをクリックすると関連商品の写真を表示する --}}
                             @php
@@ -236,7 +241,7 @@
                     </ul>
 
                 </li>
-                @endforeach <!-- // End Category Foreach -->
+                @endforeach
 
 
                 {{-- special-menuを追加 --}}
@@ -247,6 +252,7 @@
                         <div class="row">
                         <div class="col-xs-12 col-menu">
                             <ul class="links">
+
                             <li><a href="/m_mart_view">Mマート</a></li>
                             <li><a href="/m_mart_view_old">Mマート_old</a></li>
                             <li><a href="/meaturls">MマートのURL更新</a></li>
@@ -262,35 +268,6 @@
                 </li>
 
 
-
-
-
-                {{-- <li> <a href="{{ route('shop.page') }}">Shop</a> </li> --}}
-                {{-- <li> <a href="{{ route('home.blog') }}">Blog</a> </li> --}}
-
-                {{-- <li class="dropdown  navbar-right special-menu"> <a href="{{ route('shop.page') }}">Shop</a> </li> --}}
-                {{-- <li class="dropdown  navbar-right special-menu"> <a href="{{ route('home.blog') }}">Blog</a> </li> --}}
-
-
-                {{-- <li class="dropdown navbar-right special-menu"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">BLOG | FAQ | CONTACT</a>
-                    <ul class="dropdown-menu pages">
-                        <li>
-                        <div class="yamm-content">
-                            <div class="row">
-                            <div class="col-xs-12 col-menu">
-                                <ul class="links">
-                                <li><a href="/shop">Shop</a></li>
-                                <li><a href="/blog">Blog</a></li>
-                                <li><a href="/contact">Contact</a></li>
-                                <li><a href="/faq">FAQ</a></li>
-                                </ul>
-                            </div>
-                            </div>
-                        </div>
-                        </li>
-                    </ul>
-                </li> --}}
-
                 <li class="dropdown navbar-right special-menu"><a href="/production-comparison">Comparison</a></li>
                 <li class="dropdown navbar-right special-menu"><a href="/contact">CONTACT</a></li>
                 <li class="dropdown navbar-right special-menu"><a href="/faq">FAQ</a></li>
@@ -300,47 +277,43 @@
 
 
                 </ul>
-                <!-- /.navbar-nav -->
                 <div class="clearfix"></div>
             </div>
-            <!-- /.nav-outer -->
             </div>
-            <!-- /.navbar-collapse -->
 
         </div>
-        <!-- /.nav-bg-class -->
         </div>
-        <!-- /.navbar-default -->
+
     </div>
     </div>
 
-<!-- Order Traking Modal -->
-<div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-
-            <form method="post" action="{{ route('order.tracking') }}">
-                @csrf
+    <!-- Order Traking Modal -->
+    <div class="modal fade" id="ordertraking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
                 <div class="modal-body">
-                    <label>Invoice Code</label>
-                    <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+
+                <form method="post" action="{{ route('order.tracking') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <label>Invoice Code</label>
+                        <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+                    </div>
+
+                    <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
+                </form>
+
                 </div>
 
-                <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
-            </form>
-
             </div>
-
         </div>
     </div>
-</div>
 
 </header>
 

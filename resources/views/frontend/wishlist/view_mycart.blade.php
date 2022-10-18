@@ -55,7 +55,7 @@ My Cart Page
 
 				@else
 
-				<table class="table borderless" id="couponField">
+				<table id="couponField">
 					<thead>
 						<tr>
 							<th>
@@ -70,7 +70,7 @@ My Cart Page
 								<div class="form-group">
 									<input type="text" class="form-control unicase-form-control text-input" placeholder="coupon code" id="coupon_code">
 								</div>
-								<div class="clearfix pull-right">
+								<div class="clearfix pull-left">
 									<button type="submit" class="btn-upper btn btn-info" onclick="applyCoupon()">利用する</button>
 								</div>
 							</td>

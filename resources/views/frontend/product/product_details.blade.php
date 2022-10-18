@@ -48,67 +48,31 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 <div class="body-content outer-top-xs">
 	<div class='container'>
 	<div class='row single-product'>
+
 		<div class='col-md-3 sidebar'>
 			<div class="sidebar-module-container">
-			{{-- <div class="home-banner outer-top-n">
-				<img src="{{ asset('frontend/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
-			</div> --}}
-
-        <!-- ================= HOT DEALS ================== -->
-        @include('frontend.common.hot_deals')
-        <!-- ============= HOT DEALS: END ==================== -->
 
 
-		<!-- ======================= NEWSLETTER ==================== -->
-		{{-- <div class="sidebar-widget newsletter wow fadeInUp outer-bottom-small outer-top-vs">
-			<h3 class="section-title">Newsletters</h3>
-			<div class="sidebar-widget-body outer-top-xs">
-				<p>Sign Up for Our Newsletter!</p>
-				<form>
-					<div class="form-group">
-						<label class="sr-only" for="exampleInputEmail1">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Subscribe to our newsletter">
-					</div>
-					<button class="btn btn-primary">Subscribe</button>
-				</form>
-			</div><!-- /.sidebar-widget-body -->
-		</div><!-- /.sidebar-widget --> --}}
-		<!-- ====================== NEWSLETTER: END ====================== -->
+			<!-- ================= HOT DEALS ================== -->
+			@include('frontend.common.hot_deals')
+			<!-- ============= HOT DEALS: END ==================== -->
 
 
-		<!-- ======================= Testimonials====================== -->
-		{{-- <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
-			<div id="advertisement" class="advertisement">
-				<div class="item">
+			<!-- ======================== PRODUCT TAGS ========================= -->
+			@include('frontend.common.product_tags')
+			<!-- ======================== PRODUCT TAGS ========================= -->
 
-				<div class="avatar"><img src="{{ asset('frontend/assets/images/testimonials/member1.png') }} " alt="Image"></div>
-				<div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-				<div class="clients_author">John Doe	<span>Abc Company</span>	</div><!-- /.container-fluid -->
-				</div><!-- /.item -->
-
-				<div class="item">
-				<div class="avatar"><img src="{{ asset('frontend/assets/images/testimonials/member3.png') }} " alt="Image"></div>
-				<div class="testimonials"><em>"</em>Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-				<div class="clients_author">Stephen Doe	<span>Xperia Designs</span>	</div>
-				</div><!-- /.item -->
-
-				<div class="item">
-					<div class="avatar"><img src="{{ asset('frontend/assets/images/testimonials/member2.png') }} " alt="Image"></div>
-				<div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-				<div class="clients_author">Saraha Smith	<span>Datsun &amp; Co</span>	</div><!-- /.container-fluid -->
-				</div><!-- /.item -->
-
-			</div><!-- /.owl-carousel -->
-		</div> --}}
-		<!-- =================== Testimonials: END =================== -->
+			<!-- ======================= Testimonials====================== -->
+			@include('frontend.common.testimonials')
+			<!-- =================== Testimonials: END =================== -->
 
 
-	</div>
-</div>
+			</div>
+		</div>
 
 
 <div class='col-md-9'>
-<div class="detail-block">
+<div class="detail-block" style="border-radius: 8px">
 <div class="row  wow fadeInUp">
 
 	<div class="col-xs-12 col-sm-6 col-md-6 gallery-holder">
@@ -163,7 +127,11 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 					<div class="col-sm-3">
 
 					@if($avarage == 0)
-					評価待ち
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
 					@elseif($avarage == 1 || $avarage < 2)
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star"></span>
@@ -207,8 +175,8 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 				</div>
 			</div>
 
-{{--
-			<div class="stock-container info-container m-t-10">
+
+			{{--<div class="stock-container info-container m-t-10">
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="stock-box">
@@ -256,7 +224,6 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 			</div>
 
 			<div class="description-container m-t-20">
-				{{-- @if(session()->get('language') == 'cn') {{ $product->short_descp_cn }} @else {{ $product->short_descp_jp }} @endif --}}
 				@if(session()->get('language') == 'cn') {!! $product->long_descp_cn !!} @else {!! $product->long_descp_jp !!} @endif
 			</div>
 
@@ -299,7 +266,6 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 				<select class="form-control" id="color">
 					@foreach($product_color_jp as $color)
 					<option value="{{ $color }}">{{ ucwords($color) }}</option>
-					{{-- <option value="red">red</option> --}}
 					@endforeach
 				</select>
 			</div>
@@ -382,7 +348,7 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 </div>
 </div>
 
-<div class="product-tabs inner-bottom-xs  wow fadeInUp">
+<div class="product-tabs inner-bottom-xs  wow fadeInUp" style="border-radius: 8px">
 	<div class="row">
 		<div class="col-sm-3">
 			<ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
@@ -590,7 +556,7 @@ $breadsubsubcat = App\Models\SubSubCategory::with(['category','subcategory'])->w
 
 
 	<!-- ================== 関連商品===================== -->
-	<section class="section featured-product wow fadeInUp">
+	<section class="section featured-product wow fadeInUp" style="border-radius: 8px">
 		<h3 class="section-title">この商品に関連する商品</h3>
 		<div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
 

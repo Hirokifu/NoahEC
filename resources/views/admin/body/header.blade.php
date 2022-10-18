@@ -1,7 +1,7 @@
 <header class="main-header">
-<!-- Header Navbar -->
+
 <nav class="navbar navbar-static-top pl-30">
-    <!-- Sidebar toggle button-->
+
     <div>
         <ul class="nav">
         <li class="btn-group nav-item">

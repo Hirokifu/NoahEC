@@ -35,7 +35,7 @@
 
                         @foreach($products as $item)
                         <tr>
-                            <td> <img src="{{ asset($item->product_thambnail) }}" style="border-radius: 5px; width: 60px; height: 40px;"> </td>
+                            <td> <img src="{{ asset($item->product_thambnail) }}" style="border-radius: 5px; width: 50px; height: 50px;"> </td>
                             <td>{{ $item->product_name_jp }}</td>
                             <td>￥{{ $item->selling_price }}</td>
                             <td>{{ $item->product_qty }}</td>

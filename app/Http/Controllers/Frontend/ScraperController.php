@@ -10,7 +10,7 @@ use App\Models\ScraperUrl;
 use App\Models\Seefood;
 use Carbon\Carbon;
 use Goutte\Client;
-
+use PhpParser\Node\Expr\FuncCall;
 
 class ScraperController extends Controller
 {
@@ -36,17 +36,20 @@ class ScraperController extends Controller
     // }
 
 
-    // Mマートの農林水産品スクラッピング
-    public function MeatUrls()
-    {
+    // Mマートの農林水産品のURLをデータベースに保存
+    public function MeatUrls() {
+
+        // truncateでテーブルを削除する
         if(DB::table('scraper_urls')) {
             DB::table('scraper_urls')->truncate();
         }
 
         $client = new Client();
-        foreach(range(1, 2) as $num) {
 
-            // トップ > 畜産市場 > 原料肉 > 国産牛ブロック
+        //まずは2ページの商品リストをスクラッピング
+        foreach(range(1, 1) as $num) {
+
+            // トップ> 畜産市場> 原料肉> 国産牛ブロック
             $url = 'https://www.m-mart.co.jp/search/cate_sub.php?cate=1&cate2=1&cate3=2&cate4=&page='. $num .'&price=1';
             $crawler = $client->request('GET', $url);
 
@@ -54,33 +57,45 @@ class ScraperController extends Controller
                 $href = $node->attr('href');
                 //  href="/search/item.php?type=buybuyc&id=iseya0955&num=127"
 
-                return [
-                    // substr — 文字列の一部分を返す
-                    // strpos — 文字列内の部分文字列が最初に現れる場所を見つける
-
-                    'url' => 'https://www.m-mart.co.jp'.substr($href, 0, strpos($href, 'num=')+8),
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
+            return [
+                // substr — 文字列の一部分を返す
+                // strpos — 文字列内の部分文字列が最初に現れる場所を見つける
+                'url' => 'https://www.m-mart.co.jp'.substr($href, 0, strpos($href, 'num=')+8),
+                'created_at' => Carbon::now(),
+            ];
 
             });
+
             DB::table('scraper_urls')->insert($urls);
-            // dump($urls);
         }
-        return redirect()->back();
+            return redirect()->back();
     }
 
 
+    //農林水産品のリストビュー
     public function MmartView(){
 
+        // 複数の商品をdata[]との配列に保存する
         $data = [];
         $client = new Client();
 
-        foreach (ScraperUrl::all() as $index => $scraperUrl) {
+        /*
+            スクラッピングデータを即時に表示する時に、表示時間を短縮する為にpaginateを使う
+            次に画面遷移時に、自動に遷移か、次へﾎﾞﾀﾞﾝを押す
+            ASC->昇順、DESC->降順
+        */
+
+        $scraperUrls = DB::table('scraper_urls')->orderBy('id','ASC')->get();
+
+        foreach ($scraperUrls as $scraperUrl) {
+
             $url = $scraperUrl->url;
             $crawler = $client->request('GET', $url);
 
+
+            // 単一商品をproduct[]との配列に保存する
             $product= [];
+            $product['id'] = $scraperUrl->id;
 
             $crawler->filter('#contents')->each(function ($node) use (&$data, &$product) {
                 $title = $node->filter('#item_image .title_area h1')->first()->text();
@@ -95,14 +110,110 @@ class ScraperController extends Controller
                 $product['img'] = $img;
                 $product['spec'] = $spec;
                 $data[] = $product;
-            });
-        }
-        $price = substr($product['spec'][0], 0, strpos($product['spec'][0], 'k', 1)+2);
 
-        // dump($data[1]['spec'][6]);
-        return view('frontend.scraper.m_mart_view', compact('data','price'));
+            });
+
+            $price = substr($product['spec'][0], 0, strpos($product['spec'][0], 'k', 1)+2);
+
+        }
+
+        return view('frontend.scraper.m_mart_view', compact('data','price','scraperUrls'));
     }
 
+
+
+
+    // 商品詳細レビュー
+    public function MmartDetail($id){
+
+        $data = [];
+        $client = new Client();
+
+        $scraperUrl = DB::table('scraper_urls')->where('id',$id)->first();
+
+        $url = $scraperUrl->url;
+        $crawler = $client->request('GET', $url);
+
+        // 単一商品をproduct[]との配列に保存する
+        $product= [];
+        $product['id'] = $scraperUrl->id;
+
+        // dump($scraperUrl->id);
+        // die;
+
+        $crawler->filter('#contents')->each(function ($node) use (&$data, &$product) {
+            $title = $node->filter('#item_image .title_area h1')->first()->text();
+            $a = $node->filter('.photo img')->first()->attr('src');
+            $img = 'https://www.m-mart.co.jp'.substr($a, 2, strpos($a, '/', 1)+80);
+
+            $spec = $node->filter('#item_detail tr td')->each(function ($node) {
+                return $node->text();
+            });
+
+            $product['title'] = $title;
+            $product['img'] = $img;
+            $product['spec'] = $spec;
+            $data[] = $product;
+        });
+        $price = substr($product['spec'][0], 0, strpos($product['spec'][0], 'k', 1)+2);
+
+        return view('frontend.scraper.m_mart_detail', compact('url','scraperUrl','price','product'));
+    }
+
+
+
+    /*
+        URLのみデータベースに保存している。
+        商品詳細をスクラッピングしながら、自サイトに表示している。
+        以下のように改良したい：
+        商品詳細をjsonデータとして保存し、自サイトに表示する。
+    */
+
+    //農林水産品の詳細ビュー
+    // public function MmartDetail($id){
+
+    //     // $scraperUrl = ScraperUrl::findOrFail($id);
+
+    //     // 複数の商品をdata[]との配列に保存する
+    //     $data = [];
+    //     $client = new Client();
+    //     $scraperUrls = ScraperUrl::orderBy('id','ASC')->paginate(6);
+
+    //     // $nu = $scraperUrls -> firstItem();
+    //     // dump($nu);
+    //     // die;
+
+    //     // currentPage()で現在のページ番号を取得する
+    //     // $first_id = $scraperUrl->firstItem();
+    //     // $ab_id = $first_id + $id - 1;
+    //     foreach ($scraperUrls as $scraperUrl) {
+    //         $product= [];
+    //         // $product['id'] = $scraperUrl->id;
+
+    //         $url = $scraperUrl->url;
+    //         $crawler = $client->request('GET', $url);
+
+    //         $crawler->filter('#contents')->each(function ($node) use (&$data, &$product) {
+    //             $title = $node->filter('#item_image .title_area h1')->first()->text();
+    //             $a = $node->filter('.photo img')->first()->attr('src');
+    //             $img = 'https://www.m-mart.co.jp'.substr($a, 2, strpos($a, '/', 1)+80);
+
+    //             $spec = $node->filter('#item_detail tr td')->each(function ($node) {
+    //                 return $node->text();
+    //             });
+
+    //             $product['title'] = $title;
+    //             $product['img'] = $img;
+    //             $product['spec'] = $spec;
+    //             $data[] = $product;
+
+    //         });
+    //     }
+    //     $price = substr($product['spec'][0], 0, strpos($product['spec'][0], 'k', 1)+2);
+
+
+    //     return view('frontend.scraper.m_mart_detail', compact('url','data','price','product'));
+    // }
 
 
 
@@ -137,42 +248,6 @@ class ScraperController extends Controller
 
         // dump($data[1]['spec'][6]);
         return view('frontend.scraper.m_mart_view_old', compact('data','price'));
-    }
-
-
-
-
-    public function MmartDetail($id){
-
-        $scraperUrl = ScraperUrl::findOrFail($id);
-
-        $data = [];
-        $client = new Client();
-
-        $url = $scraperUrl->url;
-        $crawler = $client->request('GET', $url);
-
-        $product= [];
-
-        $crawler->filter('#contents')->each(function ($node) use (&$data, &$product) {
-            $title = $node->filter('#item_image .title_area h1')->first()->text();
-            $a = $node->filter('.photo img')->first()->attr('src');
-            $img = 'https://www.m-mart.co.jp'.substr($a, 2, strpos($a, '/', 1)+80);
-
-            $spec = $node->filter('#item_detail tr td')->each(function ($node) {
-                return $node->text();
-            });
-
-            $product['title'] = $title;
-            $product['img'] = $img;
-            $product['spec'] = $spec;
-
-            $data[] = $product;
-        });
-
-        $price = substr($product['spec'][0], 0, strpos($product['spec'][0], 'k', 1)+2);
-// dump($price);
-        return view('frontend.scraper.m_mart_detail', compact('url','data','price'));
     }
 
 

@@ -1,3 +1,5 @@
+{{-- フロント側のサイドメニュー --}}
+
 @php
 $categories = App\Models\Category::orderBy('id','ASC')->get();
 @endphp
@@ -7,7 +9,6 @@ $categories = App\Models\Category::orderBy('id','ASC')->get();
     <div class="head" style="border-radius:5px 5px 0px 0px"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
     <nav class="yamm megamenu-horizontal">
     <ul class="nav">
-
 
         {{-- カテゴリー --}}
         @foreach($categories as $category)
@@ -23,7 +24,6 @@ $categories = App\Models\Category::orderBy('id','ASC')->get();
             <li class="yamm-content">
               <div class="row">
 
-                <!--   // Get SubCategory Table Data -->
                 @php
                 $subcategories = App\Models\SubCategory::where('category_id',$category->id)->orderBy('id','ASC')->get();
                 @endphp
@@ -39,54 +39,43 @@ $categories = App\Models\Category::orderBy('id','ASC')->get();
                       </h2>
                       </a>
 
-                        <!--   // Get SubSubCategory Table Data -->
+
                       @php
                       $subsubcategories = App\Models\SubSubCategory::where('subcategory_id',$subcategory->id)->orderBy('id','ASC')->get();
                       @endphp
 
-
                       {{-- サブサブカテゴリー --}}
                       @foreach($subsubcategories as $subsubcategory)
                           <ul class="links list-unstyled">
+
                             <li><a href="{{ url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_slug_jp ) }}">
                             @if(session()->get('language') == 'cn') {{ $subsubcategory->subsubcategory_name_cn }} @else {{ $subsubcategory->subsubcategory_name_jp }} @endif</a></li>
 
                           </ul>
-                      @endforeach <!-- // End SubSubCategory Foreach -->
+                      @endforeach
 
                     </div>
-                    <!-- /.col -->
-                @endforeach  <!-- End SubCategory Foreach -->
+
+                @endforeach
 
               </div>
-              <!-- /.row -->
             </li>
-            <!-- /.yamm-content -->
           </ul>
-          <!-- /.dropdown-menu -->
         </li>
-        <!-- /.menu-item -->
         </li>
-        @endforeach  <!-- End Category Foreach -->
-
+        @endforeach
 
         {{-- メニュー追加の場合、下記使用すること --}}
-        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>メニュー</a>
-        <!-- /.dropdown-menu -->
+        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>オプション1</a>
         </li>
 
-        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-futbol-o"></i>メニュー</a>
-          <!-- /.dropdown-menu -->
+        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-futbol-o"></i>オプション2</a>
         </li>
 
-        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-envira"></i>メニュー</a>
-          <!-- /.dropdown-menu -->
+        <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-envira"></i>オプション3</a>
         </li>
 
 
     </ul>
-    <!-- /.nav -->
   </nav>
-  <!-- /.megamenu-horizontal -->
 </div>
-<!-- /.side-menu -->

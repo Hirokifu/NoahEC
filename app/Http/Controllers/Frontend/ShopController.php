@@ -16,36 +16,41 @@ class ShopController extends Controller
 
         // $products = Product::query();
 
-        if (!empty($_GET['category'])) {
+        // カテゴリとブランドを合せた条件で検索
+        if (!empty($_GET['category']) && !empty($_GET['brand'])) {
             $slugs = explode(',',$_GET['category']);
             $catIds = Category::select('id')->whereIn('category_slug_jp',$slugs)->pluck('id')->toArray();
-            $products = Product::whereIn('category_id',$catIds)->paginate(3);
-        }
-        if (!empty($_GET['brand'])) {
+
+            $slugs = explode(',',$_GET['brand']);
+            $brandIds = Brand::select('id')->whereIn('brand_slug_jp',$slugs)->pluck('id')->toArray();
+            $products = Product::whereIn('category_id',$catIds)->whereIn('brand_id',$brandIds)->paginate(3);
+
+        }elseif (empty($_GET['category']) && !empty($_GET['brand'])) {
             $slugs = explode(',',$_GET['brand']);
             $brandIds = Brand::select('id')->whereIn('brand_slug_jp',$slugs)->pluck('id')->toArray();
             $products = Product::whereIn('brand_id',$brandIds)->paginate(3);
-        }
-        else{
+
+        }elseif (!empty($_GET['category']) && empty($_GET['brand'])) {
+            $slugs = explode(',',$_GET['category']);
+            $catIds = Category::select('id')->whereIn('category_slug_jp',$slugs)->pluck('id')->toArray();
+            $products = Product::whereIn('category_id',$catIds)->paginate(3);
+
+        }else {
             $products = Product::where('status',1)->orderBy('id','DESC')->paginate(3);
         }
 
-        $brands = Brand::orderBy('brand_name_jp','ASC')->get();
         $categories = Category::orderBy('category_name_jp','ASC')->get();
+        $brands = Brand::orderBy('brand_name_jp','ASC')->get();
 
         return view('frontend.shop.shop_page',compact('products','categories','brands'));
-
-    } // end Method
-
+    }
 
 
     public function ShopFilter(Request $request){
-        // dd($request->all());
 
         $data = $request->all();
 
         // Filter Category
-
         $catUrl = "";
             if (!empty($data['category'])) {
                 foreach ($data['category'] as $category) {
@@ -54,28 +59,21 @@ class ShopController extends Controller
                     }else{
                     $catUrl .= ','.$category;
                     }
-               } // end foreach condition
-            } // end if condition
-
+                }
+            }
 
         // Filter Brand
-
         $brandUrl = "";
-            if (!empty($data['brand'])) {
-                foreach ($data['brand'] as $brand) {
-                    if (empty($brandUrl)) {
-                        $brandUrl .= '&brand='.$brand;
-                    }else{
-                    $brandUrl .= ','.$brand;
-                    }
-               } // end foreach condition
-            } // end if condition
-
-            return redirect()->route('shop.page',$catUrl.$brandUrl);
-
-    } // end Method
-
-
-
+        if (!empty($data['brand'])) {
+            foreach ($data['brand'] as $brand) {
+                if (empty($brandUrl)) {
+                    $brandUrl .= '&brand='.$brand;
+                }else{
+                $brandUrl .= ','.$brand;
+                }
+            }
+        }
+        return redirect()->route('shop.page', $catUrl.$brandUrl);
+    }
 
 }

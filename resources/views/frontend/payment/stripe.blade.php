@@ -158,7 +158,7 @@ Stripe Payment Page
                                     <div id="card-errors" role="alert"></div>
                                 </div>
                                 <br>
-                                <button class="btn btn-info">お支払い</button>
+                                <button type="submit" class="btn btn-info">お支払い</button>
                             </form>
 
                         </div>

@@ -4,6 +4,7 @@
 	@endforeach
 </ul> --}}
 
+
 <style>
 
 	body {
@@ -50,6 +51,8 @@
 	}
 </style>
 
+
+
 @if($products -> isEmpty())
 <h3 class="text-center text-danger">Product Not Found </h3>
 @else
@@ -62,9 +65,9 @@
 
 			@foreach($products as $item)
 			<a href="{{ url('product/details/'.$item->id.'/'.$item->product_slug_jp ) }}">
-				<div class="list border-bottom">  <img src="{{ asset($item->product_thambnail) }}" style="width: 30px; height: 30px;">
+				<div class="list border-bottom"><img src="{{ asset($item->product_thambnail) }}" style="width: 30px; height: 30px;">
 
-					<div class="d-flex flex-column ml-3" style="margin-left: 10px;"> <span>{{ $item->product_name_jp }} </span> <small> ${{ $item->selling_price }}</small> </div>
+				<div class="d-flex flex-column ml-3" style="margin-left: 10px;"> <span>{{ $item->product_name_jp }} </span> <small> ${{ $item->selling_price }}</small> </div>
 
 				</div>
 			</a>

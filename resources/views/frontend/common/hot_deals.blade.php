@@ -47,7 +47,6 @@
                 </div>
 
             </div>
-            <!-- /.hot-deal-wrapper -->
 
 
 
@@ -73,7 +72,6 @@
                     <button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)"> <i class="fa fa-shopping-cart"></i> </button>
 
                     <button type="submit" onclick="addToCart()" class="btn btn-info">カートに入れる</button>
-                    {{-- <button type="submit" onclick="addToCart()" class="btn btn-info" style="width:60%; margin:0 20% 0 20%""><i class="fa fa-shopping-cart inner-right-vs"></i>カートに入れる</button> --}}
                 </div>
                 </div>
             </div>
@@ -81,7 +79,6 @@
         </div>
 
         @endforeach
-        <!-- // end hot deals foreach -->
 
 
     </div>

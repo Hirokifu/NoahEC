@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
 </head>
+
 <body style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -webkit-text-size-adjust: none; background-color: #ffffff; color: #718096; height: 100%; line-height: 1.4; margin: 0; padding: 0; width: 100% !important;">
 <style>
 @media  only screen and (max-width: 600px) {

@@ -150,7 +150,7 @@
 				<div class="form-group">
 				<a>ラベル（日） <span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="product_tags_jp" class="form-control" value="ラベル" data-role="tagsinput" required="">
+					<input type="text" name="product_tags_jp" class="form-control" value="ラベル" data-role="tagsinput">
 					@error('product_tags_jp')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -162,7 +162,7 @@
 			<div class="form-group">
 				<a>ラベル（中）<span class="text-danger">(任意)</span></a>
 				<div class="controls">
-				<input type="text" name="product_tags_cn" class="form-control" value="标签" data-role="tagsinput" required="">
+				<input type="text" name="product_tags_cn" class="form-control" value="标签" data-role="tagsinput">
 				@error('product_tags_cn')
 				<span class="text-danger">{{ $message }}</span>
 				@enderror
@@ -177,7 +177,7 @@
 				<div class="form-group">
 				<a>サイズ（日） <span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="product_size_jp" class="form-control" value="サイズ" data-role="tagsinput" required="">
+					<input type="text" name="product_size_jp" class="form-control" value="サイズ" data-role="tagsinput">
 					@error('product_size_jp')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -189,7 +189,7 @@
 				<div class="form-group">
 				<a>サイズ（中）<span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="product_size_cn" class="form-control" value="尺寸" data-role="tagsinput" required="">
+					<input type="text" name="product_size_cn" class="form-control" value="尺寸" data-role="tagsinput">
 					@error('product_size_cn')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -205,7 +205,7 @@
 			<div class="form-group">
 				<a>色（日）<span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="product_color_jp" class="form-control" value="色" data-role="tagsinput" required="">
+					<input type="text" name="product_color_jp" class="form-control" value="色" data-role="tagsinput">
 					@error('product_color_jp')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -215,9 +215,9 @@
 
 			<div class="col-md-6">
 				<div class="form-group">
-				<a>色（中） <span class="text-danger">(任意)</span></a>
+				<a>色（中）<span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="product_color_cn" class="form-control" value="颜色" data-role="tagsinput" required="">
+					<input type="text" name="product_color_cn" class="form-control" value="颜色" data-role="tagsinput">
 					@error('product_color_cn')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -245,7 +245,7 @@
 			<div class="form-group">
 				<a>セール価格<span class="text-danger">(任意)</span></a>
 				<div class="controls">
-					<input type="text" name="discount_price" class="form-control"  required="">
+					<input type="text" name="discount_price" class="form-control">
 					@error('discount_price')
 					<span class="text-danger">{{ $message }}</span>
 					@enderror
@@ -292,7 +292,7 @@
 			<div class="form-group">
 				<a>一言の説明（日） <span class="text-danger">*</span></a>
 				<div class="controls">
-				<textarea name="short_descp_jp" id="textarea" class="form-control" required placeholder="Textarea text"></textarea>
+				<textarea name="short_descp_jp" id="textarea" class="form-control" required="" placeholder="Textarea text"></textarea>
 			</div>
 			</div>
 
@@ -302,7 +302,7 @@
 			<div class="form-group">
 				<a>一言の説明（中）<span class="text-danger">*</span></a>
 				<div class="controls">
-				<textarea name="short_descp_cn" id="textarea" class="form-control" required placeholder="Textarea text"></textarea>
+				<textarea name="short_descp_cn" id="textarea" class="form-control" required="" placeholder="Textarea text"></textarea>
 			</div>
 			</div>
 
@@ -377,7 +377,7 @@
 					</div>
 				</div>
 
-			</div> <!-- end col md 4 -->
+			</div>
 
 			<div class="col-md-6">
 			</div>

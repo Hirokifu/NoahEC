@@ -396,7 +396,6 @@ https://toretama.jp/click-big-image-floaty.html --}}
                     title: data.error
                 })
             }
-            // End Message
             }
         })
     }
@@ -416,20 +415,21 @@ https://toretama.jp/click-big-image-floaty.html --}}
             var rows = ""
             $.each(response, function(key,value){
                 rows += `<tr>
-                <td class="col-md-2">
-                    <img src="/${value.product.product_thambnail} " alt="img" style="border-radius: 8px; width:150px; height:100px;">
+                <td class="col-md-1">
+                    <img src="/${value.product.product_thambnail} " alt="img" style="border-radius: 8px; width:80px; height:80px;">
                 </td>
 
-                <td class="col-md-7">
+                <td class="col-md-3">
                     <div class="product-name"><a href="#">${value.product.product_name_jp}</a></div>
-
                     <div class="price">
-                        ${value.product.discount_price == null
-                            ? `${value.product.selling_price}`
-                            :
+                        ${value.product.discount_price == null ? `${value.product.selling_price}`:
                             `${value.product.discount_price} <span>${value.product.selling_price}</span>`
                         }
                     </div>
+                </td>
+
+                <td class="col-md-5">
+                    <div class="product-desc">${value.product.short_descp_jp}</div>
                 </td>
 
                 <td class="col-md-2">
@@ -437,7 +437,7 @@ https://toretama.jp/click-big-image-floaty.html --}}
                 </td>
 
                 <td class="col-md-1 close-btn">
-                    <button type="submit" class="" id="${value.id}" onclick="wishlistRemove(this.id)"><i class="fa fa-times"></i></button>
+                    <button type="submit" class="btn btn-danger btn-sm" id="${value.id}" onclick="wishlistRemove(this.id)"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>`
 
@@ -501,7 +501,7 @@ function wishlistRemove(id){
             var rows = ""
             $.each(response.carts, function(key,value){
                 rows += `<tr>
-                <td class="col-md-2"><img src="/${value.options.image} " alt="img" style="border-radius: 8px; width:80px; height:60px;"></td>
+                <td class="col-md-2"><img src="/${value.options.image} " alt="img" style="border-radius: 8px; width:80px; height:80px;"></td>
 
                     <td class="col-md-2">
                     <div class="product-name"><a href="#">${value.name}</a></div>
@@ -537,7 +537,7 @@ function wishlistRemove(id){
                     </td>
 
                     <td class="col-md-1 close-btn">
-                        <button type="submit" class="" id="${value.rowId}" onclick="cartRemove(this.id)"><i class="fa fa-times"></i></button>
+                        <button type="submit" class="btn btn-danger btn-sm" id="${value.rowId}" onclick="cartRemove(this.id)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>`
             });
@@ -674,10 +674,10 @@ function wishlistRemove(id){
                     `<tr>
                     <th>
                         <div class="cart-sub-total">
-                            Subtotal<span class="inner-left-md">$ ${data.total}</span>
+                            Subtotal<span class="inner-left-md">¥ ${data.total}</span>
                         </div>
                         <div class="cart-grand-total">
-                            Grand Total<span class="inner-left-md">$ ${data.total}</span>
+                            Grand Total<span class="inner-left-md">¥ ${data.total}</span>
                         </div>
                     </th>
                     </tr>`
@@ -687,17 +687,17 @@ function wishlistRemove(id){
                     `<tr>
                     <th>
                         <div class="cart-sub-total">
-                            Subtotal<span class="inner-left-md">$ ${data.subtotal}</span>
+                            Subtotal<span class="inner-left-md">¥ ${data.subtotal}</span>
                         </div>
                         <div class="cart-sub-total">
-                            Coupon<span class="inner-left-md">$ ${data.coupon_code}</span>
+                            Coupon<span class="inner-left-md">${data.coupon_code}</span>
                             <button type="submit" onclick="couponRemove()"><i class="fa fa-times"></i>  </button>
                         </div>
                         <div class="cart-sub-total">
-                            Discount Amount<span class="inner-left-md">$ ${data.discount_amount}</span>
+                            Discount Amount<span class="inner-left-md">¥ ${data.discount_amount}</span>
                         </div>
                         <div class="cart-grand-total">
-                            Grand Total<span class="inner-left-md">$ ${data.total_amount}</span>
+                            Grand Total<span class="inner-left-md">¥ ${data.total_amount}</span>
                         </div>
                     </th>
                     </tr>`

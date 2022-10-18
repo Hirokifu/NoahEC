@@ -1,3 +1,5 @@
+{{-- カテゴリーで商品を検索した結果を一覧リスト表示 --}}
+
 @foreach($products as $product)
 
 <div class="category-product-inner wow fadeInUp">
@@ -26,12 +28,12 @@
 
             @if ($product->discount_price == NULL)
             <div class="product-price">
-              <span class="price"> ${{ $product->selling_price }} </span>
+              <span class="price"> ¥{{ $product->selling_price }} </span>
             </div>
             @else
             <div class="product-price">
-              <span class="price"> ${{ $product->discount_price }} </span>
-              <span class="price-before-discount">$ {{ $product->selling_price }}</span>
+              <span class="price"> ¥{{ $product->discount_price }} </span>
+              <span class="price-before-discount">¥{{ $product->selling_price }}</span>
             </div>
             @endif
 
@@ -40,38 +42,42 @@
               @if(session()->get('language') == 'cn') {{ $product->short_descp_cn }} @else {{ $product->short_descp_jp }} @endif
             </div>
 
+
+            {{-- Cart/Wishlist/Compareの3ボタン機能 --}}
             <div class="cart clearfix animate-effect">
               <div class="action">
                 <ul class="list-unstyled">
                   <li class="add-cart-button btn-group">
-                    <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </button>
-                    <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+
+                    <button class="btn btn-primary icon" type="button" title="Cart" data-toggle="modal" data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)"> <i class="fa fa-shopping-cart"></i> </button>
+
+                    <button class="btn btn-danger icon" type="button" title="Wishlist" id="{{ $product->id }}" onclick="addToWishList(this.id)"> <i class="fa fa-heart"></i></button>
+
+                    <button class="btn btn-success icon" type="button" title="Compare"> <i class="fa fa-signal"></i> </button>
+
                   </li>
-
-                  <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-
-                  <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
                 </ul>
               </div>
             </div>
+
 
           </div>
         </div>
       </div>
 
 
-        @php
+      @php
         $amount = $product->selling_price - $product->discount_price;
         $discount = ($amount/$product->selling_price) * 100;
-        @endphp
+      @endphp
 
-        <div>
-            @if ($product->discount_price == NULL)
-            <div class="tag new"><span>new</span></div>
-            @else
-            <div class="tag hot"><span>{{ round($discount) }}%</span></div>
-            @endif
-        </div>
+      <div>
+          @if ($product->discount_price == NULL)
+          <div class="tag new"><span>new</span></div>
+          @else
+          <div class="tag hot"><span>{{ round($discount) }}%</span></div>
+          @endif
+      </div>
 
 
     </div>

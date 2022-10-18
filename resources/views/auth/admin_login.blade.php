@@ -20,23 +20,25 @@
 </head>
 <body>
 
-<div class="container h-p100">
+<div class="container h-p90">
     <div class="row align-items-center justify-content-md-center h-p100">
 
         <div class="col-12">
             <div class="row justify-content-center no-gutters">
-                <div class="col-lg-4 col-md-5 col-12">
+                <div class="col-lg-5 col-md-6 col-12">
+
+                    <div class="p-50 rounded15 b-2 b-dashed">
+
                     <div class="content-top-agile p-10">
-                        <h2 class="text-white">Noahshop Admin Login</h2>
-                        <p class="text-white">Signin to start your session</p>
+                        <h1 class="text-white">ノアタイムシステム<span style="font-size:15px">©</span></h1>
+                        <p class="text-white" style="margin:20px 0 30px 0">サプライヤー企業様向け</p>
                     </div>
-                    <div class="p-30 rounded15 box-shadowed b-2 b-dashed">
 
                         <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
                             @csrf
 
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-15">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-transparent text-white"><i class="ti-user"></i></span>
                                     </div>
@@ -45,8 +47,9 @@
                                     <input type="email" id="email" name="email" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Email">
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-15">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text  bg-transparent text-white"><i class="ti-lock"></i></span>
                                     </div>
@@ -56,23 +59,23 @@
                                 </div>
                             </div>
                                 <div class="row">
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="checkbox text-white">
                                     <input type="checkbox" id="basic_checkbox_1" >
                                     <label for="basic_checkbox_1">Remember Me</label>
                                     </div>
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-6">
-                                    <div class="fog-pwd text-right">
-                                    <a href="{{ route('password.request') }}" class="text-white hover-info"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
+                                </div> --}}
+
+                                <div class="col-12">
+                                    <div class="fog-pwd text-left" style="margin:0 0 0 14px">
+                                    <a href="{{ route('password.request') }}" class="text-white hover-info"><i class="ion ion-locked"> </i>パスワードを忘れた場合</a><br>
                                     </div>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-info btn-rounded mt-10">SIGN IN</button>
+
+                                <div class="col-12 text-center" style="margin:35px 0 20px 0">
+                                    <button type="submit" class="btn btn-info btn-rounded">ログイン</button>
                                 </div>
-                                <!-- /.col -->
+
                                 </div>
                         </form>
 
@@ -86,9 +89,9 @@
                             </p>
                         </div> --}}
 
-                        {{-- <div class="text-center">
-                            <p class="mt-15 mb-0 text-white">Don't have an account? <a href="auth_register.html" class="text-info ml-5">Sign Up</a></p>
-                        </div> --}}
+                        <div class="text-center" style="margin:10px 0 15px 0">
+                            <p class="mt-15 mb-0 text-white">アカウントを作成する　 <a href="#" class="text-info ml-5">登録</a></p>
+                        </div>
 
                     </div>
                 </div>

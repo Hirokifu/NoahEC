@@ -58,6 +58,8 @@ class AdminUserController extends Controller
         'inquiry' => $request->inquiry,
         'faq' => $request->faq,
         'news' => $request->news,
+        'meeting' => $request->meeting,
+        'company' => $request->company,
 
 		'type' => 2,
 		'profile_photo_path' => $save_url,
@@ -88,7 +90,7 @@ class AdminUserController extends Controller
         $image = $request->file('profile_photo_path');
 
         // 元のimageを削除
-        unlink(public_path('upload/admin_images/'.$admin_id->profile_photo_path));
+        unlink('upload/admin_images/'.$admin_id->profile_photo_path);
 
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(225,225)->save('upload/admin_images/'.$name_gen);
@@ -120,6 +122,8 @@ class AdminUserController extends Controller
             'inquiry' => $request->inquiry,
             'faq' => $request->faq,
             'news' => $request->news,
+            'meeting' => $request->meeting,
+            'company' => $request->company,
 
             'type' => 2,
             'profile_photo_path' => $save_url,
@@ -160,6 +164,8 @@ class AdminUserController extends Controller
             'inquiry' => $request->inquiry,
             'faq' => $request->faq,
             'news' => $request->news,
+            'meeting' => $request->meeting,
+            'company' => $request->company,
 
             'type' => 2,
             'created_at' => Carbon::now(),

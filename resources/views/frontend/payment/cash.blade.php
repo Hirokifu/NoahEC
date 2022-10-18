@@ -102,7 +102,7 @@ Cash On Delivery
 
                         </div>
                         <br>
-                        <button class="btn btn-primary">お支払い</button>
+                        <button type="submit" class="btn btn-primary">お支払い</button>
                     </form>
 
                     </div>
